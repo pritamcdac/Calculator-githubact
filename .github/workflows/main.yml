@@ -63,4 +63,6 @@ jobs:
       - name: List files in downloaded artifact directory
         run: ls -al
 
-      
+          #Step 3 : RUN the JAR
+      - name: Run the JAR
+        run: java -jar calculator_demo-1.0-SNAPSHOT.jar
