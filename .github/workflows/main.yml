@@ -3,7 +3,7 @@ name: Maven Build and Test Workflow
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
@@ -36,16 +36,16 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      # Step 5: List contents of target directory to ensure the file exists
-      - name: List target directory
-        run: ls -al target/
+      # Step 5: List files in target directory (for debugging)
+      - name: List files in target directory
+        run: ls -al target
 
       # Step 6: Upload build artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: calculator-demo-jar  # Artifact name
-          path: target/calculator_demo-1.0-SNAPSHOT.jar  # Path to the JAR file
+          name: calculator-demo-jar
+          path: target/calculator_demo-1.0-SNAPSHOT.jar
 
   consume-artifact:
     name: Consume Artifact
@@ -57,12 +57,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: calculator_demo-jar  # Artifact name
+          name: calculator-demo-jar
 
-      # Step 2: List downloaded files to verify download
-      - name: List downloaded files
-        run: ls -al
-
-      # Step 3: Run the JAR
+      # Step 2: Run the JAR
       - name: Run the JAR
-        run: java -jar calculator_demo-1.0-SNAPSHOT.jar  # JAR name
+        run: java -jar target/calculator_demo-1.0-SNAPSHOT.jar
