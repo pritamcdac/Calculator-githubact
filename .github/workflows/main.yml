@@ -3,7 +3,7 @@ name: Maven Build and Test Workflow
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
@@ -40,8 +40,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: myapp-jar
-          path: target/myapp-1.0-SNAPSHOT.jar
+          name: calculator-demo-jar  # Update artifact name
+          path: target/calculator-demo-1.0-SNAPSHOT.jar  # Update JAR name to match
 
   consume-artifact:
     name: Consume Artifact
@@ -53,8 +53,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: myapp-jar
+          name: calculator-demo-jar  # Match the artifact name here
 
       # Step 2: Run the JAR
       - name: Run the JAR
-        run: java -jar myapp-1.0-SNAPSHOT.jar
+        run: java -jar calculator-demo-1.0-SNAPSHOT.jar  # Match JAR name here
