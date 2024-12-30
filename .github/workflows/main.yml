@@ -3,7 +3,7 @@ name: Maven Build and Test Workflow
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
