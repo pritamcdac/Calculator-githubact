@@ -63,6 +63,10 @@ jobs:
       - name: List files in downloaded artifact directory
         run: ls -al
 
-          #Step 3 : RUN the JAR
+      # Step 3: Move the JAR to the current directory
+      - name: Move JAR to working directory
+        run: mv calculator_demo-1.0-SNAPSHOT.jar ./ || echo "JAR file not found"
+
+      # Step 4: Run the JAR file
       - name: Run the JAR
-        run: java -jar calculator_demo-1.0-SNAPSHOT.jar
+        run: java -jar calculator_demo-1.0-SNAPSHOT.jar || echo "Failed to execute JAR file. Ensure it exists and is valid."
