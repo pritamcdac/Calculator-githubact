@@ -9,17 +9,16 @@
   <version>1.0-SNAPSHOT</version>
 
   <name>calculator_demo</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>  <!-- Updated for Java 11 -->
+    <maven.compiler.target>11</maven.compiler.target>  <!-- Updated for Java 11 -->
     <jacoco.version>0.8.6</jacoco.version>
   
     <!-- SonarQube Properties -->
-  <sonar.projectKey>27072_jacoco_Java_Project_Scan_Pom:master</sonar.projectKey>
+    <sonar.projectKey>27072_jacoco_Java_Project_Scan_Pom:master</sonar.projectKey>
     <sonar.projectName>Calculator-Private-repo</sonar.projectName>
     <sonar.projectVersion>2.2</sonar.projectVersion>
     <sonar.host.url>http://127.0.0.1:9000</sonar.host.url>
@@ -29,12 +28,7 @@
     <sonar.tests>src/test/java</sonar.tests>
     <sonar.java.binaries>target/classes</sonar.java.binaries>
     <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
-
-
-
   </properties>
-
-  
 
   <dependencies>
     <dependency>
@@ -46,51 +40,77 @@
   </dependencies>
 
   <build>
-		<plugins>
-    <plugin>
+    <plugins>
+      <!-- SonarQube Plugin -->
+      <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
         <artifactId>sonar-maven-plugin</artifactId>
         <version>3.7.0.1746</version>
       </plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.3</version>
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
 
-							<dataFile>target/jacoco.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>target/my-reports</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-				<configuration>
-					<systemPropertyVariables>
-						<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
-					</systemPropertyVariables>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+      <!-- Jacoco Plugin -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.3</version>
+        <executions>
+          <execution>
+            <id>prepare-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+            <configuration>
+              <dataFile>target/jacoco.exec</dataFile>
+              <outputDirectory>target/my-reports</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+
+      <!-- Maven Compiler Plugin (to specify Java version) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>11</source>  <!-- Java source version -->
+          <target>11</target>  <!-- Java target version -->
+        </configuration>
+      </plugin>
+
+      <!-- Maven Jar Plugin (to specify main class for JAR execution) -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.cybage.alm.Calculator</mainClass>  <!-- Update with the actual main class -->
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
 </project>
