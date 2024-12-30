@@ -47,18 +47,22 @@ jobs:
           name: calculator-demo-jar
           path: target/calculator_demo-1.0-SNAPSHOT.jar
 
-  consume-artifact:
-    name: Consume Artifact
-    runs-on: ubuntu-latest
-    needs: build
+consume-artifact: 
+  name: Consume Artifact
+  runs-on: ubuntu-latest
+  needs: build
 
-    steps:
-      # Step 1: Download the artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: calculator-demo-jar
+  steps:
+    # Step 1: Download the artifact
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: calculator-demo-jar
 
-      # Step 2: Run the JAR
-      - name: Run the JAR
-        run: java -jar target/calculator_demo-1.0-SNAPSHOT.jar
+    # Step 2: List downloaded files (optional debugging step)
+    - name: List files in downloaded artifact directory
+      run: ls -al
+
+    # Step 3: Run the JAR
+    - name: Run the JAR
+      run: java -jar calculator_demo-1.0-SNAPSHOT.jar
