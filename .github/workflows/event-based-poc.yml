@@ -1,0 +1,66 @@
+name: Event-Based POC Workflow
+
+on:
+  # Trigger on push to any branch
+  push:
+    branches:
+      - main
+      - feature-poc
+
+  # Trigger on pull requests targeting the main branch
+  pull_request:
+    branches:
+      - main
+
+  # Trigger on a comment on an issue
+  issue_comment:
+    types: [created]
+
+  # Trigger on a release creation
+  release:
+    types: [created]
+
+  # Trigger on a cron schedule (midnight UTC)
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  poc-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Echo commands for push to main
+      - name: Echo on push to main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: echo "Push detected on main branch."
+
+      # Echo on push to feature-poc
+      - name: Echo on push to feature-poc
+        if: github.event_name == 'push' && github.ref == 'refs/heads/feature-poc'
+        run: echo "Push detected on feature-poc branch."
+
+      # Echo on pull request to main
+      - name: Echo on pull request to main
+        if: github.event_name == 'pull_request'
+        run: echo "Pull request to main branch detected."
+
+      # Echo on issue comment
+      - name: Echo on issue comment
+        if: github.event_name == 'issue_comment' && github.event.action == 'created'
+        run: |
+          echo "A comment was added to an issue: ${{ github.event.comment.body }}"
+
+      # Echo on release creation
+      - name: Echo on release creation
+        if: github.event_name == 'release' && github.event.action == 'created'
+        run: |
+          echo "New release created with tag: ${{ github.event.release.tag_name }}"
+
+      # Echo on scheduled event
+      - name: Echo on cron schedule
+        if: github.event_name == 'schedule'
+        run: echo "This workflow was triggered by the daily cron schedule."
