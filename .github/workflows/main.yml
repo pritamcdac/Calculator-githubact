@@ -4,8 +4,8 @@ name: Reusable Manual Workflow
 on:
   workflow_call:
     inputs:
-      repo-name:
-        description: 'Calculator-githubact'
+      java_version:
+        description: 'Java version to use'
         required: true
         default: '11'
         type: string
