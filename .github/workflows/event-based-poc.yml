@@ -10,5 +10,5 @@ jobs:
   call-reusable-workflow:
     uses:  ./.github/workflows/main.yml  # Replace with your repo and branch
     with:
-      repo-name: 'Calculator-githubact'  # Input value passed to the reusable workflow
+      java_version: '11'  # Input value passed to the reusable workflow
 
