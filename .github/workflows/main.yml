@@ -7,6 +7,7 @@ on:
       repo-name:
         description: 'Calculator-githubact'
         required: true
+        default: '11'
         type: string
 
 jobs:
