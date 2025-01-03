@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-reusable-workflow:
-    uses:  /.github/workflows/main.yml@main  # Replace with your repo and branch
+    uses:  ./.github/workflows/main.yml  # Replace with your repo and branch
     with:
       repo-name: 'Calculator-githubact'  # Input value passed to the reusable workflow
 
